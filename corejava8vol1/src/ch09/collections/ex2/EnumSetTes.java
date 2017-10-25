@@ -5,6 +5,8 @@
  */
 package ch09.collections.ex2;
 
+import ch06.interfaces.ex1.Employee06;
+import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,10 +31,22 @@ public class EnumSetTes
             System.out.println(iter.next());
         }
         
-        // iterating simple form
+        // iterating simple form 
         for(Weekday week : always)
         {
             System.out.println(week);
         }
+        
+        /**
+         * EnumMap es un map con keys que pertenece al tipo enumated
+         */
+        EnumMap<Weekday, Employee06> personInCharge = new EnumMap<>(Weekday.class);
+        personInCharge.put(Weekday.MONDAY, new Employee06("Amy Lee"));
+        personInCharge.put(Weekday.TUESDAY, new Employee06("Harry Hacker"));
+        personInCharge.put(Weekday.WEDNESDAY, new Employee06("Gary Cooper"));
+        personInCharge.put(Weekday.THURSDAY, new Employee06("Francesca Cruz"));
+        
+        personInCharge.forEach((k, v) -> 
+        System.out.println("Day in charge = " + k + ", Employee= " + v.getName()));
     }
 }
