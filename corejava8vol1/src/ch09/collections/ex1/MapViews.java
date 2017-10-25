@@ -24,17 +24,30 @@ public class MapViews
         staff.put("157-62-7935", new Employee06("Gary Cooper"));
         staff.put("456-62-5527", new Employee06("Francesca Cruz"));
         
-        // Enumerar todos los keys de un map
+        /**
+         * Retorna un set view de todas las key del map. Podemos remover elementos de este set y los valores
+         * key asociados son removidos del map, pero no podemos adicionar elementos al map
+         */
         Set<String> staffKeys = staff.keySet();
         for(String key : staffKeys)
         {
             System.out.println("Staff Key = " + key);
         }
         
-        // iteramos a la forma antigua
+        /**
+         * Retornamos un set view de objetos Map.Entry, par key/view en el map. Podemos remover elementos
+         * de este set y ellos son removidos del map, pero no podemos adicionar ningun elemento
+         */
         for(Map.Entry<String, Employee06> myStaff : staff.entrySet())
         {
             System.out.println("Key = " + myStaff.getKey() + ", value = " + myStaff.getValue());
         }
+        
+        /**
+         * Collection<V> values()
+         * retorna un collection view de todos los valores del map. Podemos remover elementos desde este
+         * set y el valore removido y su key son removidos del map,pero no podemos adicionar ningun elemento
+         */
+        System.out.println(staff.values());
     }
 }
