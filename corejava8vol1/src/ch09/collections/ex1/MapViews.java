@@ -8,36 +8,33 @@ package ch09.collections.ex1;
 import ch06.interfaces.ex1.Employee06;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 /**
  *
  * @author barcvilla
  */
-public class MapTest 
+public class MapViews 
 {
     public static void main(String[] args) 
     {
-        Map<String, Employee06> staff = new HashMap<>();
-        
+        Map<String, Employee06> staff = new HashMap<>();    
         staff.put("144-25-5464", new Employee06("Amy Lee"));
         staff.put("567-24-2546", new Employee06("Harry Hacker"));
         staff.put("157-62-7935", new Employee06("Gary Cooper"));
         staff.put("456-62-5527", new Employee06("Francesca Cruz"));
         
-        // imprimimos las entradas
-        System.out.println(staff.toString());
+        // Enumerar todos los keys de un map
+        Set<String> staffKeys = staff.keySet();
+        for(String key : staffKeys)
+        {
+            System.out.println("Staff Key = " + key);
+        }
         
-        // eliminamos una entrada
-        staff.remove("567-24-2546");
-        
-        // reemplazamos una entrada
-        staff.put("456-62-5527", new Employee06("Francesca Miller"));
-        
-        // buscamos un valor
-        System.out.println(staff.get("157-62-7935").toString());
-        
-        // iteramos sobre la coleccion usanso lambdas
-        staff.forEach((k,v) ->
-            System.out.println("Key = " + k + ", value = " + v.toString() ));
-        
+        // iteramos a la forma antigua
+        for(Map.Entry<String, Employee06> myStaff : staff.entrySet())
+        {
+            System.out.println("Key = " + myStaff.getKey() + ", value = " + myStaff.getValue());
+        }
     }
 }
