@@ -35,8 +35,15 @@ public class MapTest
         // buscamos un valor
         System.out.println(staff.get("157-62-7935").toString());
         
-        // iteramos sobre la coleccion
+        // iteramos a la forma antigua
+        for(Map.Entry<String, Employee06> myStaff : staff.entrySet())
+        {
+            System.out.println("Key = " + myStaff.getKey() + ", value = " + myStaff.getValue());
+        }
+        
+        // iteramos sobre la coleccion usanso lambdas
         staff.forEach((k,v) ->
             System.out.println("Key = " + k + ", value = " + v.toString() ));
+        
     }
 }
