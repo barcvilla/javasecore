@@ -60,9 +60,20 @@ public class Test_Stream
         iterarStream(words);
     }
     
+    /**
+     * El metodo distinct retorna los elementos del stream original en el mismo orden pero los duplicados son removidos
+     */
+    public static void demoStreamDistinct()
+    {
+        String in = readFile("distinct_text");
+        Stream<String> contents = Stream.of(in).distinct();
+        iterarStream(contents);
+    }
+    
     public static void main(String[] args) 
     {
         demoExtractingSubStream();
         demoStreamSkip();
+        demoStreamDistinct();
     }
 }
