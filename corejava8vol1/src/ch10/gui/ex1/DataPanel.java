@@ -63,6 +63,7 @@ public class DataPanel extends JPanel implements ActionListener
         if(e.getSource() == btnMessage)
         {
             greeting();
+            System.out.println(e.getSource());
         }
     }
     
