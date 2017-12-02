@@ -9,7 +9,7 @@ package ch06.lambda.expressions;
  *
  * @author barcvilla
  */
-public class ClassicSample 
+public class SimpleExample 
 {
     public static void printHeader( String header)
     {
@@ -35,7 +35,7 @@ public class ClassicSample
     {
         String header = "Estilo clasico de OOP";
         printHeader("1  " + header);
-        ClassicSample demo = new ClassicSample();
+        SimpleExample demo = new SimpleExample();
         String message = "I am learning Lambda";
         demo.simplePrinting(message);
     }
@@ -44,7 +44,7 @@ public class ClassicSample
     {
         String header = "Aplicando implementacion de Printer";
         printHeader("2 " + header);
-        ClassicSample demo = new ClassicSample();
+        SimpleExample demo = new SimpleExample();
         String something = "I am using a functional interface";
         
         Printer printer = new Printer()

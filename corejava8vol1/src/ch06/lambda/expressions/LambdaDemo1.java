@@ -17,8 +17,8 @@ public class LambdaDemo1 {
     
     public static void usingLambda1()
     {
-        String header = "Simple use Lambda # 1}";
-        ClassicSample.printHeader(header);
+        String header = "Simple use Lambda # 1";
+        SimpleExample.printHeader(header);
         
         LambdaDemo1 demo1 = new LambdaDemo1();
         String message = "I am learning Lambda";
@@ -33,7 +33,7 @@ public class LambdaDemo1 {
     public static void usingLambda2()
     {
         String header = "Simple use Lambda #2";
-        ClassicSample.printHeader(header);
+        SimpleExample.printHeader(header);
         LambdaDemo1 demo2 = new LambdaDemo1();
         String message = "I am Lambda";
         demo2.printSomething(message, (toPrint) -> {System.out.println(toPrint);});
