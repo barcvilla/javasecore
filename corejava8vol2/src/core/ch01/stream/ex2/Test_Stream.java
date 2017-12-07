@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,12 @@ import java.util.stream.Stream;
  */
 public class Test_Stream 
 {
+    public static void printHeader(String header)
+    {
+        System.out.println("\n======================================");
+        System.out.println(header);
+        System.out.println("\n======================================");
+    }
     public static String readFile(String file)
     {
         String contents = "";
@@ -49,12 +56,16 @@ public class Test_Stream
      */
     public static void demoExtractingSubStream()
     {
+        String header = "Extracting a SubStream from a Stream";
+        printHeader(header);
         Stream<Double> randoms = Stream.generate(Math::random).limit(100);
         iterarStream(randoms);
     }
     
     public static void demoStreamSkip()
     {
+        String header = "Apply skip element from a Stream";
+        printHeader(header);
         String fileSource = readFile("skip_text");
         Stream<String> words = Stream.of(fileSource.split("\\PL+")).skip(1);
         iterarStream(words);
@@ -65,9 +76,20 @@ public class Test_Stream
      */
     public static void demoStreamDistinct()
     {
+        String header = "Applying distinct operation in a Stream";
+        printHeader(header);
         String in = readFile("distinct_text");
         Stream<String> contents = Stream.of(in).distinct();
         iterarStream(contents);
+    }
+    
+    public static void demoSortedStreamLongestFirst()
+    {
+        String header = "Sorting a stream element with the mayor lenght first";
+        printHeader(header);
+        Stream<String> words = Stream.of("Diego", "Nicolas", "Fernando", "Paul", "Alan", "Carlos");
+        Stream<String> longestFirst = words.sorted(Comparator.comparing(String::length).reversed());
+        iterarStream(longestFirst);
     }
     
     public static void main(String[] args) 
@@ -75,5 +97,6 @@ public class Test_Stream
         demoExtractingSubStream();
         demoStreamSkip();
         demoStreamDistinct();
+        demoSortedStreamLongestFirst();
     }
 }

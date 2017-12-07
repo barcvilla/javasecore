@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
  *
  * @author barcvilla
  */
-public final class AppEnvironUtils 
+public final class EnvironUtils 
 {
     /**
      *  Show in the center of the screen.

@@ -25,7 +25,7 @@ public class Setup extends JFrame
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        AppEnvironUtils.showCenterScreen(this);
+        EnvironUtils.showCenterScreen(this);
         try
         {
             jbInit();
@@ -37,7 +37,7 @@ public class Setup extends JFrame
         }
         try
         {
-            AppEnvironUtils.positionCenterScreen(this);
+            EnvironUtils.positionCenterScreen(this);
             setCursor(Cursor.getDefaultCursor());
         }
         catch(Exception ex)
