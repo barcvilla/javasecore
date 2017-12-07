@@ -92,10 +92,20 @@ public class Stream03
         System.out.println("Encontrar cualquier elemento que coincida con la letra N: " + findAnyWith.get());
     }
     
+    public static void demoToKnowIfisAMtach()
+    {
+        String header = "Want to know if there is a match";
+        printHeader(header);
+        Stream<String> words = Stream.of("Diego", "Nicolas", "Fernando", "Alan", "Carlos", "Nolberto");
+        boolean w = words.anyMatch(s -> s.startsWith("N"));
+        System.out.println("Hay algun elelemtno que empiece con N: " + w);
+    }
+    
     public static void main(String[] args) 
     {
         demoReturnLargestValueFromStream();
         demoFindFirst();
         demoFindAny();
+        demoToKnowIfisAMtach();
     }
 }
