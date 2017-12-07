@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.ch01.stream.ex2;
+package core.ch01.stream.transformations;
 
-import core.ch01.stream.ex1.stream01;
+import core.ch01.stream.creations.stream01;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -83,6 +83,10 @@ public class Test_Stream
         iterarStream(contents);
     }
     
+    /**
+     * Como con todas las transformaciones de Stream, el metodo sorted genera un nuevo stream cuyo elementos son
+     * los elementos del stream original ordenados.
+     */
     public static void demoSortedStreamLongestFirst()
     {
         String header = "Sorting a stream element with the mayor lenght first";

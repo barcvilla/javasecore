@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.ch01.stream.ex1;
+package core.ch01.stream.creations;
 
 import java.io.IOException;
 import java.math.BigInteger;
