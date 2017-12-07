@@ -76,14 +76,26 @@ public class Stream03
     {
         String header = "Encuentra el primer elemento que inicie con la letra 'C'";
         printHeader(header);
-        Stream<String> words = Stream.of("Diego", "Nicolas", "Fernando", "Alan", "Carlos");
+        Stream<String> words = Stream.of("Diego", "Nicolas", "Fernando", "Alan", "Carlos", "Nolberto");
+        
         Optional<String> startWithC = words.filter(s -> s.startsWith("C")).findFirst();
         System.out.println("Primer elemento con la letra C: " + startWithC.get());
+        
+    }
+    
+    public static void demoFindAny()
+    {
+        String header = "Encuentra el primer elemento que inicie con la letra 'N'";
+        printHeader(header);
+        Stream<String> words = Stream.of("Diego", "Nicolas", "Fernando", "Alan", "Carlos", "Nolberto");
+        Optional<String> findAnyWith = words.filter(s -> s.startsWith("N")).findAny();
+        System.out.println("Encontrar cualquier elemento que coincida con la letra N: " + findAnyWith.get());
     }
     
     public static void main(String[] args) 
     {
         demoReturnLargestValueFromStream();
         demoFindFirst();
+        demoFindAny();
     }
 }
