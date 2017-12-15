@@ -26,6 +26,7 @@ public class LambdaDemo2
                 return a.compareTo(b);
             }
         });
+        System.out.println(list);
     }
     
     public static void LambdaComparator()
