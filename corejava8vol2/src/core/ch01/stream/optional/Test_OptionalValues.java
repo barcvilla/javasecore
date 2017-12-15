@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +54,7 @@ public class Test_OptionalValues
         }
     }
     
-    public static void demoUsingOptionalValue()
+    public static void demoUsingOptionalWhenNoElementInStream()
     {
         String header = "Working with Optional<T>";
         printHeader(header);
@@ -65,12 +66,34 @@ public class Test_OptionalValues
         /**
          * 1era estrategia usando Optional Value
          * Hay un valor default que queremos usar cuando no hay coincidencia, quizas un string empty
+         * Podemos usar invocar un codigo que se calcule como default con el metodo orElseGet()
+         * Podemos tambien lanzar una excepcion si no hay un valor: orElseThrow(IllegalStateException::new)
          */
         System.out.println(optionalValue.orElse("NO NUMBER") + " contains VEINTE");
     }
     
+    public static void demoUsingOptionalInvokingPieceOfCode()
+    {
+        Optional<String> optionalString = Optional.empty();
+        String result = optionalString.orElse("N/A");
+        System.out.println("result: " + result);
+        
+        result = optionalString.orElseGet(() -> Locale.getDefault().getDisplayName());
+        System.out.println("reslt: " + result);
+        try
+        {
+            result = optionalString.orElseThrow(IllegalStateException::new);
+            System.out.println("result: " + result);
+        }
+        catch(Throwable ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
     public static void main(String[] args) 
     {
-        demoUsingOptionalValue();
+        demoUsingOptionalWhenNoElementInStream();
+        demoUsingOptionalInvokingPieceOfCode();
     }
 }
