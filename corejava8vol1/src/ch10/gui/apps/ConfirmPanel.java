@@ -18,17 +18,25 @@ public final class ConfirmPanel extends JPanel
 {
     /** Botones adicionales  */
     private JButton bOk;
+    private JButton bCancel;
     /**************************************/
     /** Standard Insets usados            */
     public static Insets s_insets = new Insets(0, 10, 0, 10);
     
     /** Action String Ok                */
     public static final String A_OK = "OK";
+    public static final String A_Cancel = "CANCEL";
     
+    /** Panel botones adicionales  */
+    private JPanel m_addButtons = null;
     /**
      * Crea un boton OK con un label text y F4 shortcut
      */
-    
+    public static final JButton createOKButton(String text)
+    {
+        JButton b = new JButton("Ok");
+        return b;
+    }
     
     /**
      * Add button al lado izq del confirma panel.
@@ -36,5 +44,15 @@ public final class ConfirmPanel extends JPanel
      */
     public void addComponent(Component button)
     {
+    }
+    
+    public JButton getOkButton()
+    {
+        return bOk;
+    }
+    
+    public JButton getCancelButton()
+    {
+        return bCancel;
     }
 }
