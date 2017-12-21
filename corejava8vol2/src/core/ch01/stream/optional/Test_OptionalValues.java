@@ -91,9 +91,22 @@ public class Test_OptionalValues
         }
     }
     
+    /**
+     * Creando valores Optional
+     * @param x Double value
+     * @return Valor creado por un objeto Optional. Hay muchos metodos static para este proposito incluyendo:
+     * Optional.of(result)
+     * Optional.empty()
+     */
+    public static void demoInverse(Double x)
+    {
+        System.out.println(x == 0 ? Optional.empty() : Optional.of(1 / x));
+    }
+    
     public static void main(String[] args) 
     {
         demoUsingOptionalWhenNoElementInStream();
         demoUsingOptionalInvokingPieceOfCode();
+        demoInverse(0.2);
     }
 }
