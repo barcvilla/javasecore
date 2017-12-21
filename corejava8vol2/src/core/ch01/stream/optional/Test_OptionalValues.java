@@ -54,6 +54,31 @@ public class Test_OptionalValues
         }
     }
     
+    public static void demoFilterNonEmptyValuesFromStreamOfOptionals()
+    {
+        String header = "Filter non empty value from stream of Optionals";
+        printHeader(header);
+        List<Optional<String>> listOfOptionals = Arrays.asList(Optional.empty(), Optional.of("foo"), Optional.of("bar"));
+        Stream<String> filteredList = listOfOptionals.stream()
+                .filter(Optional::isPresent)
+                .map(Optional::get);
+        iterarStream(filteredList);
+    }
+    
+    /**
+     * Usamos flatMap con expresion lambda que convierte un empty Optional a una instancia empty stream y un
+     * non-empty Optional en stream
+     */
+    public static void demoUsingFlatMapToConvertEmptyOptional()
+    {
+        String header = "Usamos flatMap";
+        printHeader(header);
+        List<Optional<String>> listOfOptionals = Arrays.asList(Optional.empty(), Optional.of("foo"), Optional.of("bar"));
+        Stream<String> filteredList = listOfOptionals.stream()
+                .flatMap(o -> o.isPresent() ? Stream.of(o.get()) : Stream.empty());
+        iterarStream(filteredList);
+    }
+    
     public static void demoUsingOptionalWhenNoElementInStream()
     {
         String header = "Working with Optional<T>";
@@ -98,15 +123,24 @@ public class Test_OptionalValues
      * Optional.of(result)
      * Optional.empty()
      */
-    public static void demoInverse(Double x)
+    public static Optional<Double> inverse(Double x)
     {
-        System.out.println(x == 0 ? Optional.empty() : Optional.of(1 / x));
+        return x == 0 ? Optional.empty() : Optional.of(1 / x);
     }
+    
+    public static void demoInverse()
+    {
+        System.out.println(inverse(0.0));
+    }
+    
+    
     
     public static void main(String[] args) 
     {
-        demoUsingOptionalWhenNoElementInStream();
         demoUsingOptionalInvokingPieceOfCode();
-        demoInverse(0.2);
+        demoUsingOptionalWhenNoElementInStream();
+        demoInverse();
+        demoFilterNonEmptyValuesFromStreamOfOptionals();
+        demoUsingFlatMapToConvertEmptyOptional();
     }
 }
