@@ -10,9 +10,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.logging.Level;
@@ -24,12 +26,12 @@ import java.util.logging.Logger;
  */
 public class CollectingResult 
 {
-    public static Stream<String> readFile()
+    public static Stream<String> readFile(String fileName)
     {
         Stream<String> numbers = null;
         try
         {
-            String contents = new String(Files.readAllBytes(Paths.get("./rs/1Kints.txt")), StandardCharsets.UTF_8);
+            String contents = new String(Files.readAllBytes(Paths.get("./rs/" + fileName + ".txt")), StandardCharsets.UTF_8);
             List<String> numbersList = Arrays.asList(contents.split("\\."));
             numbers = numbersList.stream();
         }
@@ -51,7 +53,7 @@ public class CollectingResult
     
     public static void printReadFileDemo()
     {
-        Set<String> numbers = readFile()
+        Set<String> numbers = readFile("1Kints")
                 // collect stream elements to another target. Collectors provee varios factory methods
                 // para obtener Collection comunes. Collectors.toSet() / Collectors.toList()
                 // TreeSet<String> result = stream.collect(Collectors.toCollection(TreeSet::new));
@@ -95,10 +97,85 @@ public class CollectingResult
         System.out.println("");
     }
     
+    public static Stream<String> noVowels() throws IOException
+    {
+        String contents = new String(Files.readAllBytes(Paths.get("./rs/medTale.txt")), StandardCharsets.UTF_8);
+        List<String> wordList = Arrays.asList(contents.split("\\PL+"));
+        Stream<String> words = wordList.stream();
+        return words.map(s -> s.replaceAll("[aeiouAEIOU]", ""));
+    }
+    
+    public static void printNoVowelDemo()
+    {
+        try
+        {
+            Set<String> noVowelSet = noVowels()
+                .collect(Collectors.toSet());
+            show("noVowelSet", noVowelSet);
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void creatingTreeSet()
+    {
+        try
+        {
+            TreeSet<String> noVowelTreeSet = noVowels().collect(Collectors.toCollection(TreeSet::new));
+            show("noVowelTreeSet", noVowelTreeSet);
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void joiningContentWithCommas()
+    {
+        try
+        {
+            String result = noVowels().limit(10).collect(Collectors.joining());
+            System.out.println("Joining " + result);
+            
+            result = noVowels().limit(10).collect(Collectors.joining(", "));
+            System.out.println("Joining with commas " + result);
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void SummaryStatisticsDemo()
+    {
+        try
+        {
+            IntSummaryStatistics summary = noVowels().collect(Collectors.summarizingInt(String::length));
+            double averageWordLength = summary.getAverage();
+            double maxWordLength = summary.getMax();
+            
+            System.out.println("Average word length: " + averageWordLength);
+            System.out.println("Max word length: " + maxWordLength);
+            
+            System.out.println("forEach");
+            noVowels().limit(16).forEach(System.out::println);
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
     public static void main(String[] args) {
         printReadFileDemo();
         iteratingElementsDemo();
         interatingIntegerDemo();
         integerArrayDemo();
+        printNoVowelDemo();
+        creatingTreeSet();
+        joiningContentWithCommas();
+        SummaryStatisticsDemo();
     }
 }
