@@ -28,7 +28,7 @@ public class MyListener1 extends JFrame
     {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 100);
+        setSize(300, 300);
         setVisible(true);
         try
         {

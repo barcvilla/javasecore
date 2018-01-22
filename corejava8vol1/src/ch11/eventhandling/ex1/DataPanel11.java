@@ -6,11 +6,14 @@
 package ch11.eventhandling.ex1;
 
 import ch10.gui.ex1.*;
+import java.awt.Color;
+import static java.awt.Color.red;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -34,6 +37,9 @@ public class DataPanel11 extends JPanel implements ActionListener
         {
             ex.printStackTrace();
         }
+        
+        // definimos actions
+        
     }
     
     //private static ImageIcon iOpen = new ImageIcon(DataPanel11.class.getResource("openFile.gif"));
@@ -44,10 +50,15 @@ public class DataPanel11 extends JPanel implements ActionListener
     //private JTextField fldMessage = new JTextField(FIELDLENGTH);
     private JButton btnYellow = new JButton("Yellow");
     private JButton btnBlue = new JButton("Blue");
-    private JButton btnRed = new JButton("Red");
+    
+    // Actions
+    ColorAction red = new ColorAction("Red", new ImageIcon("ball_red.png"), Color.RED);
+    Action redAction = red;
+    private JButton btnRed = new JButton(redAction);
     
     private void jbInit() throws Exception
-    {
+    {   
+        red.setButton(btnRed);
         this.setLayout(gridBagLayout);
         /**
         lblMessage.setText("Java Hello world! ");
@@ -69,35 +80,39 @@ public class DataPanel11 extends JPanel implements ActionListener
         
         btnYellow.addActionListener(this);
         btnBlue.addActionListener(this);
-        btnBlue.addActionListener(this);
-        
+        btnRed.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource() == btnYellow)
         {
-            greeting();
-            System.out.println(e.getSource());
+            //greeting();
+            printSourceObject(e);
         }
         
         if(e.getSource() == btnBlue)
         {
-            greeting();
-            System.out.println(e.getSource());
+            //greeting();
+            printSourceObject(e);
         }
         
         if(e.getSource() == btnRed)
         {
-            greeting();
-            System.out.println(e.getSource());
+            //greeting();
+            printSourceObject(e);
         }
         
     }
     
-    //-- action metodos
+    //-- actions metodos
     private void greeting()
     {
         JOptionPane.showConfirmDialog(null, "button clicked!", "Aviso",JOptionPane.OK_OPTION);
+    }
+    
+    private void printSourceObject(ActionEvent e)
+    {
+        System.out.println(e.getSource());
     }
 }
