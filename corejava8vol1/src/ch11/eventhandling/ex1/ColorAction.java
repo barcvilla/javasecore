@@ -32,6 +32,11 @@ public class ColorAction extends AbstractAction
         button = b;
     }
     
+    public JButton getButton()
+    {
+        return button;
+    }
+    
     private void setColor(Color c)
     {
         button.setBackground(c);
