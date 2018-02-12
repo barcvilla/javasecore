@@ -52,9 +52,8 @@ public class DataPanel11 extends JPanel implements ActionListener
     private JButton btnBlue = new JButton("Blue");
     
     // Actions
-    ColorAction red = new ColorAction("Red", new ImageIcon("ball_red.png"), Color.RED);
-    Action redAction = red;
-    private JButton btnRed = new JButton(redAction);
+    ColorAction red = new ColorAction("Red", new ImageIcon("hep.gif"), Color.RED);
+    private JButton btnRed = new JButton(red);
     
     private void jbInit() throws Exception
     {   
