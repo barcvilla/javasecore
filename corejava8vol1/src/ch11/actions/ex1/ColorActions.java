@@ -8,28 +8,37 @@ package ch11.actions.ex1;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JPanel;
 
 /**
  *
  * @author barcvilla
  */
-public class ColorActions implements ActionListener 
+public class ColorActions extends AbstractAction implements ActionListener
 {
-    private Color backgroundColor;
-    private JPanel buttonPanel;
-    public ColorActions(Color c)
+    //private Color backgroundColor;
+    private static JPanel buttonPanel;
+
+    public ColorActions(String name, Icon icon, Color c)
     {
-        backgroundColor = c;
+        putValue(Action.NAME, name);
+        putValue(Action.SMALL_ICON, icon);
+        putValue(Action.SHORT_DESCRIPTION, "Set panel color to " + name.toLowerCase());
+        putValue("Color", c);
+        //backgroundColor = c;
     }
     
-    public void setpanel(JPanel buttonPanel)
+    public static void setpanel(JPanel bPanel)
     {
-        this.buttonPanel = buttonPanel;
+        buttonPanel = bPanel;
     }
     
     public void actionPerformed(ActionEvent e)
     {
-        buttonPanel.setBackground(backgroundColor);
+        Color c = (Color) getValue("color");
+        buttonPanel.setBackground(c);
     }
 }
