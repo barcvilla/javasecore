@@ -45,15 +45,13 @@ public class ButtonFrame extends JFrame
         Action blueAction = new ColorAction("Blue", new ImageIcon("ball_red.pgn"), Color.BLUE);
         Action redAction = new ColorAction("Red", new ImageIcon("ball_red.png"), Color.RED);
         
-        // creamos buttons
-        JButton yellowButton = new JButton(yellowAction);
-        JButton blueButton = new JButton(blueAction);
-        JButton redButton = new JButton(redAction);
-        
         //Adicionamos los botones al Panel.
-        buttonPanel.add(yellowButton);
-        buttonPanel.add(blueButton);
-        buttonPanel.add(redButton);        
+        buttonPanel.add(new JButton(yellowAction));
+        buttonPanel.add(new JButton(blueAction));
+        buttonPanel.add(new JButton(redAction));        
+        
+        // adicionamos al JFrame
+        add(buttonPanel);
         
         // asociamos Red, Blue y Yellow con nombres
         InputMap imap = buttonPanel.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -66,9 +64,6 @@ public class ButtonFrame extends JFrame
         amap.put("panel.yellow", yellowAction);
         amap.put("panel.blue", blueAction);
         amap.put("panel.red", redAction);
-        
-        // adicionamos al JFrame
-        add(buttonPanel);
         
     }
 
