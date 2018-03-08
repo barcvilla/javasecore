@@ -101,6 +101,21 @@ public class DownStreamCollectors1
         }
     }
     
+    public static void joiningCountryCity()
+    {
+        try
+        {
+            Stream<Country> countries = readCountries("./rs/countries.txt");
+            Map<String, String> stateToCity = countries.collect(Collectors.groupingBy(
+                    Country::getName, Collectors.mapping(Country::getCity, Collectors.joining(","))));
+            System.out.println("CountryToCityNames: " + stateToCity);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     public static void main(String[] args)
     {
         printCountryLocaleSet();
@@ -109,5 +124,6 @@ public class DownStreamCollectors1
         compareLongestCityName();
         printCountryToLanguage();
         printCountryPopulationSummary();
+        joiningCountryCity();
     }
 }
