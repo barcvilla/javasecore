@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.ch02.file.write;
+package core.ch02.serialization;
 
-import java.io.Serializable;
+import core.ch02.file.write.*;
+
 import java.time.LocalDate;
 
 /**
- *
+ * SerialCloneable Class
  * @author jcva175
  */
-public class Employee implements Serializable{
+public class EmployeeSerial extends SerialCloneable
+{
     
     public static final int NAME_SIZE = 40;
     public static final int RECORD_SIZE = 2 * NAME_SIZE + 8 + 4 + 4 + 4;
@@ -21,9 +23,9 @@ public class Employee implements Serializable{
     private double salary;
     private LocalDate hireDay;
     
-    public Employee(){}
+    public EmployeeSerial(){}
 
-    public Employee(String name, double salary, int year, int month, int day)
+    public EmployeeSerial(String name, double salary, int year, int month, int day)
     {
         this.name = name;
         this.salary = salary;
