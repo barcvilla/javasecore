@@ -76,9 +76,43 @@ public class GBC extends GridBagConstraints
         return this;
     }
     
+    /**
+     * Sets insets a esta celda
+     * @param distance - spacio para usar en todas las direcciones
+     * @return este objeto para mayor modificacion
+     */
     public GBC setInsets(int distance)
     {
         this.insets = new Insets(distance, distance, distance, distance);
         return this;
     }
+    
+    /**
+     * Set insets en esta celda
+     * @param top - top spacing use on top
+     * @param left
+     * @param bottom
+     * @param right
+     * @return 
+     */
+    public GBC setInsets(int top, int left, int bottom, int right)
+    {
+        this.insets = new Insets(top, left, bottom, right);
+        return this;
+    }
+    
+    /**
+     * Set internal padding
+     * @param ipadx - internal padding en direccion x
+     * @param ipady - internal padding en direccion y
+     * @return  este objeto para su modificacion
+     */
+    public GBC setIpad(int ipadx, int ipady)
+    {
+        this.ipadx = ipadx;
+        this.ipady = ipady;
+        return this;
+    }
+    
+    
 }
