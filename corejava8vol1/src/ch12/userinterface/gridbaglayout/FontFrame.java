@@ -30,6 +30,7 @@ public class FontFrame extends JFrame
     private JComboBox<Integer> size;
     private JCheckBox bold;
     private JCheckBox italic;
+    private JCheckBox underLine;
     private JTextArea sample;
     
     public FontFrame()
@@ -53,6 +54,9 @@ public class FontFrame extends JFrame
         italic = new JCheckBox("Italic");
         italic.addActionListener(listener);
         
+        underLine = new JCheckBox("UnderLine");
+        underLine.addActionListener(listener);
+        
         sample = new JTextArea(TEXT_ROWS,TEXT_COLUMNS);
         sample.setText("The quick brown fox jumps over the lazy dog");
         sample.setEditable(false);
@@ -64,8 +68,9 @@ public class FontFrame extends JFrame
         add(face, new GBC(1,0).setFill(GBC.HORIZONTAL).setWeight(100, 0).setInsets(1));
         add(sizeLabel, new GBC(0,1).setAnchor(GBC.EAST));
         add(size, new GBC(1,1).setFill(GBC.HORIZONTAL).setWeight(100, 0).setInsets(1));
-        add(bold, new GBC(0,2,2,1).setAnchor(GBC.CENTER).setWeight(100, 100));
-        add(italic, new GBC(0,3,2,1).setAnchor(GBC.CENTER).setWeight(100, 100));
+        add(bold, new GBC(0,2,2,1).setAnchor(GBC.WEST).setWeight(100, 100));
+        add(italic, new GBC(0,3,2,1).setAnchor(GBC.WEST).setWeight(100, 100));
+        add(underLine, new GBC(0,4,2,1).setAnchor(GBC.WEST).setWeight(100, 100));
         add(sample, new GBC(2,0,1,4).setFill(GBC.BOTH).setWeight(100, 100));
         pack();
         updateSample();
