@@ -40,17 +40,23 @@ public class TestDB
     /*Ejecutamos una prueba de creacion de tabla, adicion de valor, mostramos el contenido de la tabla, removemos la tabla*/
     public static void runTest() throws SQLException, IOException
     {
+        /*Obtenemos un objeto Connection y creamos un Objeto Statement*/
         try(Connection conn = getConnection();
                 Statement stat = conn.createStatement())
         {
+            /*Usamos ExecuteUpdate para acciones como: INSERT, UPDATE, DELETE y operaciones de definicion de datos
+              CREATE TABLE, DROP TABLE*/
             stat.executeUpdate("CREATE TABLE greetings(message character varying(20))");
             stat.executeUpdate("INSERT INTO greetings(message) values('Hello, world!!')");
             
+            /*Utilizamos el metodo executeQuery para operaciones SELECT. ExecuteQuery retorna un objeto ResultSet*/
             try(ResultSet result = stat.executeQuery("SELECT * FROM greetings"))
             {
+                /*Analizamos el objeto ResultSet*/
                 if(result.next())
                 {
-                    System.out.println(result.getString(1));
+                    /*inspeccionamos la fila individualmente*/
+                    System.out.println(result.getString("message")); /*metodo accesor getString() para obtener dato String*/
                 }
             }
             
@@ -73,6 +79,7 @@ public class TestDB
             System.setProperty("jdbc.drivers", drivers);
         }
         
+        /*Nos conectamos a la BD*/
         String url = props.getProperty("jdbc.url");
         String username = props.getProperty("jdbc.username");
         String password =  props.getProperty("jdbc.password");
