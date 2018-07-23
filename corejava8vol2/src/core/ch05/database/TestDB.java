@@ -60,7 +60,7 @@ public class TestDB
                 }
             }
             
-            stat.executeUpdate("DROP TABLE greetings");
+            //stat.executeUpdate("DROP TABLE greetings");
         }
     }
     
