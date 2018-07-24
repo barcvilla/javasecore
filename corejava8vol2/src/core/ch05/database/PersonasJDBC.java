@@ -7,7 +7,9 @@ package core.ch05.database;
 import java.sql.*;
 import java.util.*;
 /**
- *
+ * Usamos la misma conexion para todas las operaciones CRUD. Ya que cuando trabajamos con Transacciones debemos utilizar la misma
+ * conexion para asi poder realizar un commit o rollback de toda la transaccion, es decir, utilizando la misma conexion de principio
+ * a fin.
  * @author PC
  */
 public class PersonasJDBC {
@@ -16,87 +18,93 @@ public class PersonasJDBC {
     private final String SQL_DELETE = "DELETE FROM persona WHERE id_persona = ?";
     private final String SQL_SELECT = "SELECT * FROM persona ORDER BY id_persona";
     
-    public int insert(String nombre, String ape_paterno, String ape_materno, String email, String telefono)
+    private java.sql.Connection userConn;
+    
+    public PersonasJDBC(){}
+    
+    public PersonasJDBC(Connection conn)
     {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        int rows = 0;
-        try
-        {
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, nombre); // param 1 => ?
-            stmt.setString(2, ape_paterno); // param 2 => ?
-            stmt.setString(3, ape_materno);
-            stmt.setString(4, email);
-            stmt.setString(5, telefono);
-            System.out.println("Ejecutando query: " +  SQL_INSERT);
-            stmt.execute(); // nro registros afectados
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        finally
-        {
-            Conexion.close(stmt);
-            Conexion.close(conn);
-        }
-        return rows;
-                    
+        this.userConn =  conn;
     }
     
-    public int update(int id_personas, String email)
+    public int insert(String nombre, String ape_paterno, String ape_materno, String email, String telefono)throws SQLException
     {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try
         {
-            conn = Conexion.getConnection();
+            /*Variable userconn ya fue inicializada?. si lo fue vamos a reutilizar la conexion de lo contrario solicitamos conexion*/
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_INSERT);
+            int index = 1;
+            stmt.setString(index++, nombre); // param 1 => ?
+            stmt.setString(index++, ape_paterno); // param 2 => ?
+            stmt.setString(index++, ape_materno);
+            stmt.setString(index++, email);
+            stmt.setString(index++, telefono);
+            System.out.println("Ejecutando query: " +  SQL_INSERT);
+            rows = stmt.executeUpdate(); // nro registros afectados
+            System.out.println("Registros afectados: " + rows);
+        }
+        finally //omitimos el bloque catch para poder lanzar la excepcion al caller de la funcion.
+        {
+            Conexion.close(stmt);
+            if(this.userConn == null) //de lo contrario mantenemos activa la conexion durante el tiempo de vida de la clase PersonaJDBC
+            {
+                Conexion.close(conn);
+            }
+        }
+        return rows;
+    }
+    
+    public int update(int id_personas, String email) throws SQLException
+    {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try
+        {
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             System.out.println("Ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
             stmt.setString(index++, email);
-            stmt.setInt(index, id_personas);
+            stmt.setInt(index++, id_personas);
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizados: " + rows);
         }
-        catch(SQLException ex){ex.printStackTrace();}
         finally
         {
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn == null){Conexion.close(conn);}
         }
         return rows;
     }
     
-    public int delete(int id_persona)
+    public int delete(int id_persona) throws SQLException
     {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try
         {
-           conn = Conexion.getConnection();
+           conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             System.out.println("Ejecutando query: " + SQL_DELETE); 
             stmt =  conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, id_persona);
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados: " + rows); 
         }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
         finally
         {
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn == null){Conexion.close(conn);}
         }
         return rows;
     }
     
-    public List<Persona> select()
+    public List<Persona> select() throws SQLException
     {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -105,7 +113,7 @@ public class PersonasJDBC {
         List<Persona> personas = new ArrayList<>();
         try
         {
-            conn = Conexion.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while(rs.next())
@@ -120,15 +128,11 @@ public class PersonasJDBC {
                 personas.add(persona);
             }
         }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
         finally
         {   
             Conexion.close(rs);
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn == null){Conexion.close(conn);}
         }
         return personas;
     }

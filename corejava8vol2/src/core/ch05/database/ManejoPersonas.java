@@ -5,6 +5,9 @@
  */
 package core.ch05.database;
 
+import core.ch05.database.*;
+import core.ch05.database.transacciones.Persona;
+import core.ch05.database.transacciones.PersonasJDBC;
 import java.util.List;
 
 /**
